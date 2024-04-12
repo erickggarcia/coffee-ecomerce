@@ -9,9 +9,9 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     body {
-        font-family: 'Roboto';
-        margin: 0 27rem;
-        min-width: 1056px ;
+        font-family: 'Roboto', sans-serif;
+        margin: 0 20rem;
+        min-width: 1268px ;
     }
 
 `

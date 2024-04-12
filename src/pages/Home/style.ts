@@ -2,7 +2,8 @@ import styled from "styled-components";
 
 export const HomeLayout = styled.section`
     display: flex;
-    padding: 20px 0 ;
+    padding: 20px 0;
+    gap: 56px;
 
     article {
         h1 {
@@ -51,7 +52,7 @@ export const CoffeeLayout = styled.section`
 
     article {
         display: grid;
-        gap: 52px;
+        gap: 32px;
         grid-template-columns: repeat(4, 1fr);
     }
 `

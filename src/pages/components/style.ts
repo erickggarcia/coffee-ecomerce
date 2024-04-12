@@ -44,6 +44,7 @@ export const MenuContainer = styled.div`
         span {
             font-weight: bolder;
             font-size: 25px;
+            margin-left: 5px;
         }
     }
 

@@ -1,4 +1,4 @@
-import { Coffees } from "./components/Coffees"
+import { Coffees } from "../components/Coffees"
 import { CoffeeLayout, HomeLayout } from "./style"
 
 export interface iCoffees {

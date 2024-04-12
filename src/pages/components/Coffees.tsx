@@ -1,4 +1,4 @@
-import { iCoffees } from "../Home"
+import { iCoffees } from "../Home/Home"
 import { MenuContainer } from "./style"
 
 
