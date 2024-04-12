@@ -10,7 +10,8 @@ export const GlobalStyle = createGlobalStyle`
 
     body {
         font-family: 'Roboto';
-        margin: 0 10rem;
+        margin: 0 27rem;
+        min-width: 1056px ;
     }
 
 `

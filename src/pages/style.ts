@@ -51,7 +51,7 @@ export const CoffeeLayout = styled.section`
 
     article {
         display: grid;
-        gap: 32px;
+        gap: 52px;
         grid-template-columns: repeat(4, 1fr);
     }
 `
