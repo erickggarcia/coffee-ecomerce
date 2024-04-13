@@ -27,6 +27,9 @@ const coffees: iCoffees[] = [
 ]
 
 export const Home = () => {
+
+    {document.title = 'Coffee Delivery | Home'}
+
     return (
         <>
             <HomeLayout>

@@ -1,6 +1,9 @@
 import { SuccessCheckoutContainer } from "./style"
 
 export const Success = () => {
+
+    {document.title = 'Coffee Delivery | Success'}
+
     return (
         <SuccessCheckoutContainer>
             <article>

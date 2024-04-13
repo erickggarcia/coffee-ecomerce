@@ -1,6 +1,9 @@
 import { CheckoutContainer, DeliveryAdress, PaymentConfirmation } from "./style"
 
 export const Checkout = () => {
+
+    {document.title = 'Coffee Delivery | Checkout'}
+
     return (
         <CheckoutContainer>
             <DeliveryAdress>
