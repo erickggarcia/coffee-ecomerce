@@ -1,12 +1,17 @@
 import { ThemeProvider } from "styled-components"
 import { defaultTheme } from "./styles/themes/default"
 import { GlobalStyle } from "./styles/globals"
-
-export const App = () => {
+import { Router } from "./Router"
+import { BrowserRouter } from 'react-router-dom'
+function App() {
   return (
-      <ThemeProvider theme={defaultTheme}>
-        <div>Fala ai</div>
-        <GlobalStyle/>
-      </ThemeProvider>
+    <ThemeProvider theme={defaultTheme}>
+      <BrowserRouter>
+        <Router />
+        <GlobalStyle />
+      </BrowserRouter>
+    </ThemeProvider>
   )
 }
+
+export default App
