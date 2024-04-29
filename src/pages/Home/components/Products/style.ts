@@ -69,8 +69,4 @@ export const MenuContainer = styled.div`
         color: ${props => props.theme['purple']};
         cursor: pointer;
     }
-
-    .controls.minus {
-        height: 11px;
-    }
 `

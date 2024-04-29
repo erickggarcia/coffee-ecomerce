@@ -2,6 +2,7 @@ import { useContext } from "react"
 import { iCoffees } from "../../index"
 import { MenuContainer } from "./style"
 import { ProductsContext } from "../../../../contexts/productsContext"
+import { Minus, Plus } from 'phosphor-react'
 
 export function Coffees ({...props} : iCoffees) {
 
@@ -22,9 +23,9 @@ return (
             <div className="priceMenu">
                 <p className="value">R$<span>{props.value.toFixed(2)}</span></p>
                 <div className="lengthContainer">
-                    <span className="controls minus" onClick={() => handleDecreaseProduct(props)}>_</span>
+                    <span className="controls" onClick={() => handleDecreaseProduct(props)}><Minus/></span>
                         {productAmount}
-                    <span className="controls" onClick={() => handleIncreaseProduct(props)}>+</span>
+                    <span className="controls" onClick={() => handleIncreaseProduct(props)}><Plus/></span>
                 </div>
                 <div className="shoppingCartContainer">
                     <img src="icons/shoppingCartSimple.png" alt="" />
