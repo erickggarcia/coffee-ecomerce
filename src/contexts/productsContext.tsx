@@ -29,10 +29,7 @@ export function ProductsContextProvider ({children}: ProductsContextProviderProp
                     })
 
                     if(currentIndex !== -1) {
-                        return produce(state, (draft) => {
-                            draft.products[currentIndex].amount += 1
-                        })
-
+                        draft.products[currentIndex].amount += 1
                     } else {
                         draft.products.push({...action.payload, amount: 1})
                     }
