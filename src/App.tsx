@@ -8,12 +8,12 @@ import { ProductsContextProvider } from "./contexts/productsContext"
 function App() {
   return (
     <ThemeProvider theme={defaultTheme}>
-      <ProductsContextProvider>
         <BrowserRouter>
-          <Router />
-          <GlobalStyle />
+          <ProductsContextProvider>
+            <Router />
+            <GlobalStyle />
+          </ProductsContextProvider>
         </BrowserRouter>
-      </ProductsContextProvider>
     </ThemeProvider>
   )
 }

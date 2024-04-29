@@ -5,7 +5,9 @@ import { ProductsContext } from "../../../../contexts/productsContext"
 
 export function Coffees ({...props} : iCoffees) {
 
-    const {handleDecreaseProduct, handleIncreaseProduct} = useContext(ProductsContext)
+    const {handleDecreaseProduct, handleIncreaseProduct, products} = useContext(ProductsContext)
+    const currentProduct = products.find((product) => product.id === props.id)
+    const productAmount = currentProduct ? currentProduct.amount : 0
 
 return (
         <MenuContainer>
@@ -21,7 +23,7 @@ return (
                 <p className="value">R$<span>{props.value.toFixed(2)}</span></p>
                 <div className="lengthContainer">
                     <span className="controls minus" onClick={() => handleDecreaseProduct(props)}>_</span>
-                        0
+                        {productAmount}
                     <span className="controls" onClick={() => handleIncreaseProduct(props)}>+</span>
                 </div>
                 <div className="shoppingCartContainer">

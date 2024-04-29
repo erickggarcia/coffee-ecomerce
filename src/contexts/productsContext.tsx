@@ -1,5 +1,6 @@
 import { ReactNode, createContext, useReducer } from "react"
 import { iCoffees } from "../pages/Home"
+import {produce} from 'immer'
 
 interface iCoffeesState {
     products: iCoffees[]
@@ -22,12 +23,36 @@ export function ProductsContextProvider ({children}: ProductsContextProviderProp
     const [productState, dispatch] = useReducer((state: iCoffeesState, action: any) => {
         switch(action.type) {
             case 'ADD_ONE_MORE_PRODUCT':
-                return {
-                    ...state,
-                    products: [...state.products, action.payload]
-                };
+                return produce(state, (draft) => {
+                    const currentIndex = draft.products.findIndex((product) => {
+                        return product.id === action.payload.id
+                    })
+
+                    if(currentIndex !== -1) {
+                        return produce(state, (draft) => {
+                            draft.products[currentIndex].amount += 1
+                        })
+
+                    } else {
+                        draft.products.push({...action.payload, amount: 1})
+                    }
+                })
+
             case 'REDUCE_THIS_PRODUCT':
-                return state
+                return produce(state, (draft) => {
+                    const currentIndex = draft.products.findIndex((product) => {
+                        return product.id === action.payload.id
+                    })
+
+                    if(currentIndex !== -1) {
+                        return produce(state, (draft) => {
+                            if(draft.products[currentIndex].amount > 0) {
+                                draft.products[currentIndex].amount -= 1
+                            }
+                        })
+                    }
+                })
+
             default:
                 return state
         }
@@ -37,7 +62,6 @@ export function ProductsContextProvider ({children}: ProductsContextProviderProp
     });
 
     const { products } = productState
-    console
     
     function handleDecreaseProduct(props: iCoffees) {
         dispatch({
