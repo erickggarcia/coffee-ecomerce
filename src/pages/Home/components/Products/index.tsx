@@ -19,6 +19,11 @@ export function Coffees ({...props} : iCoffees) {
         }
     }
 
+    function addProductToCart() {
+        handleAddProductToCart({...props, amount})
+        setAMount(0)
+    }
+
 return (
         <MenuContainer>
             <img src={props.img} alt="" />
@@ -36,7 +41,7 @@ return (
                         {amount}
                     <span className="controls" onClick={handleIncreaseProduct} ><Plus/></span>
                 </div>
-                <div className="shoppingCartContainer" onClick={() => handleAddProductToCart({...props, amount})}>
+                <div className="shoppingCartContainer" onClick={addProductToCart}>
                         <ShoppingCart size={24} color='#fff' weight='fill'/>
                 </div>
             </div>
