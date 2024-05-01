@@ -12,6 +12,9 @@ interface iCoffeesWithAMount extends iCoffees {
 
 interface iProductsContext {
     handleAddProductToCart: ( props: iCoffeesWithAMount) => void
+    handleDecreaseProduct: ( props: iCoffeesWithAMount) => void
+    handleIncreaseProduct: ( props: iCoffeesWithAMount) => void
+    handleDeleteProduct: ( props: iCoffeesWithAMount) => void
     products: iCoffees[]
 }
 
@@ -69,6 +72,14 @@ export function ProductsContextProvider ({children}: ProductsContextProviderProp
                     }
                 })
 
+            case 'REMOVE_PRODUCT_FROM_CART':
+                return produce(state, (draft) => {
+                    const currentIndex = draft.products.findIndex((product) => {
+                        return product.id === action.payload.id
+                    })
+                    draft.products.splice(currentIndex, 1)
+                })
+
             default:
                 return state
         }
@@ -110,10 +121,40 @@ export function ProductsContextProvider ({children}: ProductsContextProviderProp
         console.log(props)
     }
 
+    function handleIncreaseProduct(props: iCoffeesWithAMount) {
+        dispatch({
+            type: 'ADD_ONE_MORE_PRODUCT',
+            payload: {
+                ...props
+            }
+        })
+    }
+    
+    function handleDecreaseProduct(props: iCoffeesWithAMount) {
+        dispatch({
+            type: 'REDUCE_THIS_PRODUCT',
+            payload: {
+                ...props
+            }
+        })
+    }
+
+    function handleDeleteProduct(props: iCoffeesWithAMount) {
+        dispatch({
+            type: "REMOVE_PRODUCT_FROM_CART",
+            payload: {
+                ...props
+            }
+        })
+    }
+
     return (
         <ProductsContext.Provider value={{
             products,
-            handleAddProductToCart
+            handleAddProductToCart,
+            handleIncreaseProduct,
+            handleDecreaseProduct,
+            handleDeleteProduct
         }}>
             {children}
         </ProductsContext.Provider>

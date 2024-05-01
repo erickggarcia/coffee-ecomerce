@@ -1,13 +1,21 @@
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import { CheckoutContainer, DeliveryAdress, PaymentConfirmation } from "./style"
 import { Minus, Plus } from 'phosphor-react'
 import { ProductsContext } from "../../contexts/productsContext"
+import { useNavigate } from "react-router-dom"
 
 
 export const Checkout = () => {
 
     {document.title = 'Coffee Delivery | Checkout'}
-    const {products} = useContext(ProductsContext)
+    const {products, handleIncreaseProduct, handleDecreaseProduct, handleDeleteProduct} = useContext(ProductsContext)
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if(products.length === 0) {
+            navigate("/")
+        }
+    }, [products])
 
     return (
         <CheckoutContainer>
@@ -59,21 +67,23 @@ export const Checkout = () => {
             </DeliveryAdress>
 
             <PaymentConfirmation>
+                { products.length > 0 ?  (
+                <>
                 <h1>Cafés selecionados</h1>
                 <article>
                         {products.map((product) => 
                             (
-                                <div className="selectionContainer">
+                                <div key={product.id} className="selectionContainer">
                                     <img src={product.img} alt="" />
                                     <div>
                                         <p>{product.name}</p>
                                         <div className="selectionAction">
                                             <div className="lengthContainer">
-                                                <span className="controls"><Minus/></span>
+                                                <span className="controls" onClick={() => handleDecreaseProduct(product)}><Minus/></span>
                                                     {product.amount}
-                                                <span className="controls"><Plus/></span>
+                                                <span className="controls" onClick={() => handleIncreaseProduct(product)}><Plus/></span>
                                             </div>
-                                            <div className="deleteContainer">
+                                            <div onClick={() => handleDeleteProduct(product)} className="deleteContainer">
                                                 <img src="icons/trash.png" alt="" />
                                                 REMOVER
                                             </div>
@@ -101,7 +111,13 @@ export const Checkout = () => {
                 </div>
 
                 <button>Confirmar Pedido</button>
-
+                </>
+                    ) : (
+                        <> 
+                            <h1>Você não selecionou nenhum produto</h1>
+                        </>
+                    )
+                }
             </PaymentConfirmation>
         </CheckoutContainer>
     )

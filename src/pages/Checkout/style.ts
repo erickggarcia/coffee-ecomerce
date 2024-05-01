@@ -174,6 +174,7 @@ export const PaymentConfirmation = styled.article`
         }
 
         .deleteContainer {
+            cursor: pointer;
             img {
                 display: block;
                 width: 18px;
