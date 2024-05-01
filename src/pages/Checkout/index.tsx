@@ -1,8 +1,13 @@
+import { useContext } from "react"
 import { CheckoutContainer, DeliveryAdress, PaymentConfirmation } from "./style"
+import { Minus, Plus } from 'phosphor-react'
+import { ProductsContext } from "../../contexts/productsContext"
+
 
 export const Checkout = () => {
 
     {document.title = 'Coffee Delivery | Checkout'}
+    const {products} = useContext(ProductsContext)
 
     return (
         <CheckoutContainer>
@@ -56,42 +61,28 @@ export const Checkout = () => {
             <PaymentConfirmation>
                 <h1>Cafés selecionados</h1>
                 <article>
-                    <div className="selectionContainer">
-                        <img src="images/coffees/cubano.png" alt="" />
-                        <div>
-                            <p>Cubano</p>
-                            <div className="selectionAction">
-                                <div className="lengthContainer">
-                                    <span className="controls minus">_</span>0<span className="controls">+</span>
+                        {products.map((product) => 
+                            (
+                                <div className="selectionContainer">
+                                    <img src={product.img} alt="" />
+                                    <div>
+                                        <p>{product.name}</p>
+                                        <div className="selectionAction">
+                                            <div className="lengthContainer">
+                                                <span className="controls"><Minus/></span>
+                                                    {product.amount}
+                                                <span className="controls"><Plus/></span>
+                                            </div>
+                                            <div className="deleteContainer">
+                                                <img src="icons/trash.png" alt="" />
+                                                REMOVER
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p>R$<span>{product.value.toFixed(2)}</span></p>
                                 </div>
-                                <div className="deleteContainer">
-                                    <img src="icons/trash.png" alt="" />
-                                    REMOVER
-                                </div>
-                            </div>
-                        </div>
-                        <p>R$<span>9.90</span></p>
-                    </div>
-                </article>
-
-                <article>
-                    <div className="selectionContainer">
-                        <img src="images/coffees/macchiato.png" alt="" />
-                        <div>
-                            <p>Macchiato</p>
-                            <div className="selectionAction">
-
-                                <div className="lengthContainer">
-                                    <span className="controls minus">_</span>0<span className="controls">+</span>
-                                </div>
-                                <div className="deleteContainer">
-                                    <img src="icons/trash.png" alt="" />
-                                    REMOVER
-                                </div>
-                            </div>
-                        </div>
-                        <p>R$<span>9.90</span></p>
-                    </div>
+                            )
+                        )}
                 </article>
 
                 <div className="summary">

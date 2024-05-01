@@ -2,15 +2,12 @@ import { useContext, useState } from "react"
 import { iCoffees } from "../../index"
 import { MenuContainer } from "./style"
 import { ProductsContext } from "../../../../contexts/productsContext"
-import { Minus, Plus } from 'phosphor-react'
+import { Minus, Plus, ShoppingCart } from 'phosphor-react'
 
 export function Coffees ({...props} : iCoffees) {
 
-    const {products, handleAddProductToCart} = useContext(ProductsContext)
-    // const currentProduct = products.find((product) => product.id === props.id)
-    // const productAmount = currentProduct ? currentProduct.amount : 0
-    const [amount, setAMount] = useState(0)
-    
+    const {handleAddProductToCart} = useContext(ProductsContext)
+    const [amount, setAMount] = useState(0) 
 
     function handleIncreaseProduct() {
         setAMount((state) => state += 1)
@@ -21,8 +18,6 @@ export function Coffees ({...props} : iCoffees) {
             setAMount((state) => state -= 1)
         }
     }
-
-
 
 return (
         <MenuContainer>
@@ -37,12 +32,12 @@ return (
             <div className="priceMenu">
                 <p className="value">R$<span>{props.value.toFixed(2)}</span></p>
                 <div className="lengthContainer">
-                    <span className="controls" onClick={ handleDecreaseProduct}><Minus/></span>
+                    <span className="controls" onClick={handleDecreaseProduct}><Minus/></span>
                         {amount}
                     <span className="controls" onClick={handleIncreaseProduct} ><Plus/></span>
                 </div>
-                <div className="shoppingCartContainer" onClick={() => handleAddProductToCart(props)}>
-                    <img src="icons/shoppingCartSimple.png" alt="" />
+                <div className="shoppingCartContainer" onClick={() => handleAddProductToCart({...props, amount})}>
+                        <ShoppingCart size={24} color='#fff' weight='fill'/>
                 </div>
             </div>
         </MenuContainer >
