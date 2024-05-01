@@ -9,6 +9,13 @@ export const Checkout = () => {
 
     {document.title = 'Coffee Delivery | Checkout'}
     const {products, handleIncreaseProduct, handleDecreaseProduct, handleDeleteProduct} = useContext(ProductsContext)
+
+    const total = products.reduce((acc, product) => {
+        return acc + (Number(product.value) * Number(product.amount));
+    }, 0);
+    
+    const frete = 7.50
+
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -89,7 +96,7 @@ export const Checkout = () => {
                                             </div>
                                         </div>
                                     </div>
-                                    <p>R$<span>{product.value.toFixed(2)}</span></p>
+                                    <p>R$<span>{(product.value * product.amount).toFixed(2).replace('.', ',')}</span></p>
                                 </div>
                             )
                         )}
@@ -97,17 +104,17 @@ export const Checkout = () => {
 
                 <div className="summary">
                     <span>Total de itens</span>
-                    <span> R$ 29,70</span>
+                    <span> R$ {total.toFixed(2).replace('.', ',')}</span>
                 </div>
 
                 <div className="summary">
                     <span>Entrega </span>
-                    <span> R$ 3,50</span>
+                    <span> R$ {frete.toFixed(2).replace('.', ',')}</span>
                 </div>
 
                 <div className="summary">
                     <span>Total </span>
-                    <span>R$ 33,20</span>
+                    <span>R$ {(total + frete).toFixed(2).replace('.', ',')}</span>
                 </div>
 
                 <button>Confirmar Pedido</button>
