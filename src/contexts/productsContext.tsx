@@ -7,8 +7,7 @@ interface iCoffeesState {
 }
 
 interface iProductsContext {
-    handleDecreaseProduct: (props: iCoffees) => void;
-    handleIncreaseProduct: (props: iCoffees) => void;
+    handleAddProductToCart: (props: iCoffees) => void
     products: iCoffees[]
 }
 
@@ -42,11 +41,13 @@ export function ProductsContextProvider ({children}: ProductsContextProviderProp
                     })
 
                     if(currentIndex !== -1) {
-                        return produce(state, (draft) => {
-                            if(draft.products[currentIndex].amount > 0) {
-                                draft.products[currentIndex].amount -= 1
-                            }
-                        })
+                        if(draft.products[currentIndex].amount > 0) {
+                            draft.products[currentIndex].amount -= 1
+                        } 
+                        
+                        if(draft.products[currentIndex].amount === 0) {
+                            draft.products.splice(currentIndex, 1)
+                        }
                     }
                 })
 
@@ -60,29 +61,19 @@ export function ProductsContextProvider ({children}: ProductsContextProviderProp
 
     const { products } = productState
     
-    function handleDecreaseProduct(props: iCoffees) {
+    function handleAddProductToCart(props: iCoffees) {
         dispatch({
             type: 'REDUCE_THIS_PRODUCT',
             payload: {
                 ...props
             }
-        });
-    }
-    
-    function handleIncreaseProduct(props: iCoffees) {
-        dispatch({
-            type: 'ADD_ONE_MORE_PRODUCT',
-            payload: {
-                ...props
-            }
-        });
+        })
     }
 
     return (
         <ProductsContext.Provider value={{
             products,
-            handleDecreaseProduct,
-            handleIncreaseProduct
+            handleAddProductToCart
         }}>
             {children}
         </ProductsContext.Provider>
