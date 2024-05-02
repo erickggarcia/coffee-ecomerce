@@ -1,12 +1,10 @@
 import { ReactNode, createContext, useEffect, useReducer } from "react"
 import { iCoffees } from "../pages/Home"
-import {produce} from 'immer'
+import { ProductsReducer } from "../reducers/reducer"
+import { AddProductToCartAction, DecreaseProductAction, DeleteProductAction, IncreaseProductAction } from "../reducers/actions"
 
-interface iCoffeesState {
-    products: iCoffees[]
-}
 
-interface iCoffeesWithAMount extends iCoffees {
+export interface iCoffeesWithAMount extends iCoffees {
     amount: number
 }
 
@@ -26,64 +24,7 @@ export const ProductsContext = createContext({} as iProductsContext);
 
 export function ProductsContextProvider ({children}: ProductsContextProviderProps) {
     
-    const [productState, dispatch] = useReducer((state: iCoffeesState, action: any) => {
-        switch(action.type) {
-            case 'ADD_PRODUCT_TO_CART':
-                return produce(state, (draft) => {
-                    const currentIndex = draft.products.findIndex((product) => {
-                        return product.id === action.payload.id
-                    })
-
-                    if(currentIndex !== -1) {
-                        draft.products[currentIndex].amount += action.payload.amount
-                    } else {
-                        draft.products.push(action.payload)
-                    }
-                })
-
-
-            case 'ADD_ONE_MORE_PRODUCT':
-                return produce(state, (draft) => {
-                    const currentIndex = draft.products.findIndex((product) => {
-                        return product.id === action.payload.id
-                    })
-
-                    if(currentIndex !== -1) {
-                        draft.products[currentIndex].amount += 1
-                    } else {
-                        draft.products.push({...action.payload, amount: 1})
-                    }
-                })
-
-            case 'REDUCE_THIS_PRODUCT':
-                return produce(state, (draft) => {
-                    const currentIndex = draft.products.findIndex((product) => {
-                        return product.id === action.payload.id
-                    })
-
-                    if(currentIndex !== -1) {
-                        if(draft.products[currentIndex].amount > 0) {
-                            draft.products[currentIndex].amount -= 1
-                        } 
-                        
-                        if(draft.products[currentIndex].amount === 0) {
-                            draft.products.splice(currentIndex, 1)
-                        }
-                    }
-                })
-
-            case 'REMOVE_PRODUCT_FROM_CART':
-                return produce(state, (draft) => {
-                    const currentIndex = draft.products.findIndex((product) => {
-                        return product.id === action.payload.id
-                    })
-                    draft.products.splice(currentIndex, 1)
-                })
-
-            default:
-                return state
-        }
-    }, 
+    const [productState, dispatch] = useReducer(ProductsReducer, 
     {
         products: []
     },
@@ -106,12 +47,7 @@ export function ProductsContextProvider ({children}: ProductsContextProviderProp
     const { products } = productState
     
     function handleAddProductToCart(props: iCoffeesWithAMount) {
-        dispatch({
-            type: 'ADD_PRODUCT_TO_CART',
-            payload: {
-                ...props
-            }
-        })
+        dispatch(AddProductToCartAction(props))
 
         if(props.amount <= 0) {
             alert('A quantidade não pode ser 0')
@@ -122,30 +58,15 @@ export function ProductsContextProvider ({children}: ProductsContextProviderProp
     }
 
     function handleIncreaseProduct(props: iCoffeesWithAMount) {
-        dispatch({
-            type: 'ADD_ONE_MORE_PRODUCT',
-            payload: {
-                ...props
-            }
-        })
+        dispatch(IncreaseProductAction(props))
     }
     
     function handleDecreaseProduct(props: iCoffeesWithAMount) {
-        dispatch({
-            type: 'REDUCE_THIS_PRODUCT',
-            payload: {
-                ...props
-            }
-        })
+        dispatch(DecreaseProductAction(props))
     }
 
     function handleDeleteProduct(props: iCoffeesWithAMount) {
-        dispatch({
-            type: "REMOVE_PRODUCT_FROM_CART",
-            payload: {
-                ...props
-            }
-        })
+        dispatch(DeleteProductAction(props))
     }
 
     return (
