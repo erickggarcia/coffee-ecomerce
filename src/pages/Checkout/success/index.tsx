@@ -1,8 +1,11 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { SuccessCheckoutContainer } from "./style"
 import { iDeliveryFormData } from ".."
+import { ProductsContext } from "../../../contexts/productsContext"
 
 export const Success = () => {
+
+    const {removeAllProductsFromCart} = useContext(ProductsContext)
 
     {document.title = 'Coffee Delivery | Success'}
 
@@ -22,6 +25,7 @@ export const Success = () => {
     })
 
     useEffect(() => {
+        removeAllProductsFromCart()
         localStorage.removeItem('coffee-shop:productState-1.0.0')
         const deliveryAddress = localStorage.getItem('deliveryAddress')
         if(deliveryAddress) {

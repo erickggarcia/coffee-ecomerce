@@ -1,7 +1,7 @@
 import { ReactNode, createContext, useEffect, useReducer } from "react"
 import { iCoffees } from "../pages/Home"
 import { ProductsReducer } from "../reducers/reducer"
-import { AddProductToCartAction, DecreaseProductAction, DeleteProductAction, IncreaseProductAction } from "../reducers/actions"
+import { AddProductToCartAction, DecreaseProductAction, DeleteProductAction, IncreaseProductAction, RemoveAllProductsFromCartAction } from "../reducers/actions"
 
 
 export interface iCoffeesWithAMount extends iCoffees {
@@ -13,6 +13,7 @@ interface iProductsContext {
     handleDecreaseProduct: ( props: iCoffeesWithAMount) => void
     handleIncreaseProduct: ( props: iCoffeesWithAMount) => void
     handleDeleteProduct: ( props: iCoffeesWithAMount) => void
+    removeAllProductsFromCart : () => void
     products: iCoffees[]
 }
 
@@ -53,8 +54,6 @@ export function ProductsContextProvider ({children}: ProductsContextProviderProp
             alert('A quantidade não pode ser 0')
             return
         }
-
-        console.log(props)
     }
 
     function handleIncreaseProduct(props: iCoffeesWithAMount) {
@@ -69,13 +68,18 @@ export function ProductsContextProvider ({children}: ProductsContextProviderProp
         dispatch(DeleteProductAction(props))
     }
 
+    function removeAllProductsFromCart() {
+        dispatch(RemoveAllProductsFromCartAction())
+    }
+
     return (
         <ProductsContext.Provider value={{
             products,
             handleAddProductToCart,
             handleIncreaseProduct,
             handleDecreaseProduct,
-            handleDeleteProduct
+            handleDeleteProduct,
+            removeAllProductsFromCart
         }}>
             {children}
         </ProductsContext.Provider>

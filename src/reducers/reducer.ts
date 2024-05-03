@@ -61,6 +61,12 @@ export function ProductsReducer(state: iCoffeesState, action: any) {
                 draft.products.splice(currentIndex, 1)
             })
 
+        case ActionType.REMOVE_ALL_PRODUCTS_FROM_CART:
+            return {
+                ...state,
+                products: []
+            }
+
         default:
             return state
     }
