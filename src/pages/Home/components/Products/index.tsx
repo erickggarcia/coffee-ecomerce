@@ -35,7 +35,7 @@ return (
             <h3>{props.name}</h3>
             <p className="description">{props.description}</p>
             <div className="priceMenu">
-                <p className="value">R$<span>{props.value.toFixed(2)}</span></p>
+                <p className="value">R$<span>{props.value.toFixed(2).replace('.', ',')}</span></p>
                 <div className="lengthContainer">
                     <span className="controls" onClick={handleDecreaseProduct}><Minus/></span>
                         {amount}
