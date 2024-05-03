@@ -4,6 +4,7 @@ export const HomeLayout = styled.section`
     display: flex;
     padding: 20px 0;
     gap: 56px;
+    justify-content: space-between;
 
     article {
         h1 {

@@ -25,7 +25,7 @@ export const Header = () => {
                         <section>
                             <ShoppingCart size={24} color='#C47F17' weight='fill'/>
                         </section>
-                        <span className='amountCart'>
+                        <span style={{visibility: amountProductsAtCart > 0 ? 'visible' : 'hidden'}} className='amountCart'>
                             {amountProductsAtCart}
                         </span>
                 </Link>
