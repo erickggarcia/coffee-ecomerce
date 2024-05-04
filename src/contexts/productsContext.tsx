@@ -48,12 +48,13 @@ export function ProductsContextProvider ({children}: ProductsContextProviderProp
     const { products } = productState
     
     function handleAddProductToCart(props: iCoffeesWithAMount) {
-        dispatch(AddProductToCartAction(props))
-
         if(props.amount <= 0) {
             alert('A quantidade não pode ser 0')
             return
         }
+        
+        dispatch(AddProductToCartAction(props))
+
     }
 
     function handleIncreaseProduct(props: iCoffeesWithAMount) {
