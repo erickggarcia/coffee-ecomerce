@@ -2,12 +2,6 @@
 
 E-commerce de cafés. O usuário navega por um catálogo de 14 cafés, escolhe as quantidades, monta o carrinho, informa o endereço de entrega e a forma de pagamento, e finaliza o pedido em uma tela de confirmação.
 
-Projeto desenvolvido como desafio do Ignite ReactJS da Rocketseat.
-
-🔗 **Acesse:** [coffee-ecomerce.vercel.app](https://coffee-ecomerce.vercel.app/)
-
----
-
 ## ✨ Funcionalidades
 
 - [x] Listar o catálogo de cafés com imagem, tags, descrição e preço
